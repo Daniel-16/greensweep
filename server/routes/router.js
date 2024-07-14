@@ -5,7 +5,6 @@ import {
   createVolunteer,
 } from "../controllers/VolunteerController.js";
 import { createTask, getAllTasks, getTask } from "../controllers/Tasks.js";
-import { authenticateUser } from "../middleware/authenticateUser.js";
 const router = express.Router();
 
 router.post("/createUser", createUser);
