@@ -1,4 +1,4 @@
-import VolunteerModel from "../models/Volunteer.js";
+import UserModel from "../models/User.js";
 
 export const authenticateUser = async (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -6,7 +6,7 @@ export const authenticateUser = async (req, res, next) => {
     const token = authHeader.split(" ")[1];
     try {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await VolunteerModel.findById(decodedToken.userId);
+      const user = await UserModel.findById(decodedToken.userId);
       req.user = user;
       next();
     } catch (error) {

@@ -6,7 +6,7 @@ const app = express();
 import router from "./routes/router.js";
 
 app.use(cors());
-app.use(express.json({ limit: "500mb" }));
+app.use(express.json({ limit: "30mb" }));
 app.use("/api", router);
 
 const port = process.env.PORT || 5500;
