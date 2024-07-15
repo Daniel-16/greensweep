@@ -3,15 +3,18 @@ import { createUser, loginUser } from "../controllers/UserController.js";
 import {
   completeTask,
   createVolunteer,
+  loginVolunteer,
 } from "../controllers/VolunteerController.js";
 import { createTask, getAllTasks, getTask } from "../controllers/Tasks.js";
 import { authenticateUser } from "../middleware/authenticateUser.js";
 const router = express.Router();
 
 router.post("/createUser", createUser);
-router.post("/loginUser", loginUser, authenticateUser);
+router.post("/loginUser", loginUser);
 
 router.post("/createVolunteer", createVolunteer);
+router.post("/loginVolunteer", loginVolunteer);
+
 router.post("/createTask", createTask);
 router.put("/completeTask/:id", completeTask);
 router.get("/getAllTasks", getAllTasks);
