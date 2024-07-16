@@ -21,7 +21,8 @@ router.post("/loginVolunteer", loginVolunteer);
 
 router.post("/createTask", authenticateUser, createTask);
 router.put("/completeTask/:id", completeTask);
-router.get("/getAllTasks", getAllTasks);
+
+router.get("/getAllTasks", authenticateUser, getAllTasks);
 router.get("/getTask/:userId/:taskId", getTask);
 
 export default router;
