@@ -1,11 +1,19 @@
 import TaskModel from "../models/Tasks.js";
 import VolunteerModel from "../models/Volunteer.js";
+import UserModel from "../models/User.js";
 import { generateToken } from "../utils/generateToken.js";
 import bcrypt from "bcrypt";
 
 export const createVolunteer = async (req, res) => {
   const { fullname, email, phoneNumber, password } = req.body;
   try {
+    const user = await UserModel.findOne({ email });
+    if (user) {
+      return res.status(409).json({
+        success: false,
+        message: "User cannot register as a volunteer",
+      });
+    }
     const volunteer = await VolunteerModel.create({
       fullname,
       email,
