@@ -1,18 +1,27 @@
 import TaskModel from "../models/Tasks.js";
 import VolunteerModel from "../models/Volunteer.js";
+import UserModel from "../models/User.js";
 
 export const createTask = async (req, res) => {
+  const userId = req.user._id;
   const { image, location, completeTask, reward } = req.body;
   try {
-    const task = TaskModel.create({
-      image,
-      location,
-      completeTask,
-      reward,
-    });
-    res.status(201).json({
-      success: true,
-      task,
+    const user = await UserModel.findById(userId);
+    if (user) {
+      const task = TaskModel.create({
+        image,
+        location,
+        // completeTask,
+        // reward,
+      });
+      return res.status(201).json({
+        success: true,
+        task,
+      });
+    }
+    res.status(404).json({
+      success: false,
+      message: "User not found",
     });
   } catch (error) {
     res.status(500).json({

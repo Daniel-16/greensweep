@@ -16,7 +16,7 @@ const TaskSchema = new mongoose.Schema({
   },
   reward: {
     type: Number,
-    default: 1000,
+    default: 500,
   },
 });
 
