@@ -47,7 +47,16 @@ export const getAllTasks = async (_req, res) => {
 };
 
 export const getTask = async (req, res) => {
-  const volunteerId = req.volunteer._id;
+  const { volunteer } = req;
+
+  if (!volunteer || !volunteer._id) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid token. User must be a volunteer to get tasks.",
+    });
+  }
+
+  const volunteerId = volunteer._id;
   const { taskId } = req.params;
   try {
     const volunteer = await VolunteerModel.findById(volunteerId);
