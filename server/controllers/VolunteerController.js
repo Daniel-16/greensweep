@@ -20,41 +20,12 @@ export const createVolunteer = async (req, res) => {
       phoneNumber,
       password,
     });
-    const token = generateToken({ userId: volunteer._id });
+    const token = generateToken({ volunteerId: volunteer._id });
     res.status(201).json({
       success: true,
       volunteer,
       token,
     });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message,
-    });
-  }
-};
-
-export const completeTask = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const task = await TaskModel.findOneAndUpdate(
-      { _id: id },
-      { completeTask: true },
-      { new: true }
-    );
-
-    if (task) {
-      res.status(200).json({
-        success: true,
-        message: "Task completed",
-        task,
-      });
-    } else {
-      res.status(404).json({
-        success: false,
-        message: "Task not found",
-      });
-    }
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -82,7 +53,7 @@ export const loginVolunteer = async (req, res) => {
       });
     }
 
-    const token = generateToken({ userId: volunteer._id });
+    const token = generateToken({ volunteerId: volunteer._id });
     res.status(200).json({
       success: true,
       volunteer: {

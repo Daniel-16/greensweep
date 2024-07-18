@@ -47,13 +47,12 @@ export const getAllTasks = async (_req, res) => {
 };
 
 export const getTask = async (req, res) => {
-  // const userId = req.user._id;
-  const { userId } = req.params;
+  const volunteerId = req.volunteer._id;
   const { taskId } = req.params;
   try {
-    const volunteer = await VolunteerModel.findById(userId);
+    const volunteer = await VolunteerModel.findById(volunteerId);
     if (volunteer) {
-      const task = await TaskModel.findOne({ _id: taskId });
+      const task = await TaskModel.findById(taskId);
       return res.status(200).json({
         success: true,
         task,
@@ -61,7 +60,12 @@ export const getTask = async (req, res) => {
     }
     res.status(404).json({
       success: false,
-      error: "Task not found",
+      message: "User not found. Must be a volunteer to get tasks.",
     });
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
 };
