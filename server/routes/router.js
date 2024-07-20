@@ -5,6 +5,7 @@ import {
   loginVolunteer,
 } from "../controllers/VolunteerController.js";
 import {
+  completeTask,
   createTask,
   getAllTasks,
   getTask,
@@ -35,5 +36,7 @@ router.post("/createTask", authenticateUser, createTask);
 router.get("/getAllTasks", authenticateUser, getAllTasks);
 
 router.get("/getTask/:taskId", authenticateVolunteer, getTask);
+
+router.put("/completeTask/:taskId", authenticateVolunteer, completeTask);
 
 export default router;

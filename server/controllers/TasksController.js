@@ -78,3 +78,33 @@ export const getTask = async (req, res) => {
     });
   }
 };
+
+export const completeTask = async (req, res) => {
+  const { volunteer } = req;
+  if (!volunteer || !volunteer._id) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid token. User must be a volunteer to get tasks.",
+    });
+  }
+
+  const volunteerId = volunteer._id;
+  const { taskId } = req.params;
+  try {
+    const volunteer = await VolunteerModel.findById(volunteerId);
+    if (volunteer) {
+      const task = await TaskModel.findByIdAndUpdate(taskId, {
+        completeTask: true,
+      });
+      res.status(201).json({
+        success: true,
+        task,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
