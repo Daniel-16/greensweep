@@ -4,15 +4,13 @@ import UserModel from "../models/User.js";
 
 export const createTask = async (req, res) => {
   const userId = req.user._id;
-  const { image, location, completeTask, reward } = req.body;
+  const { image, location } = req.body;
   try {
     const user = await UserModel.findById(userId);
     if (user) {
       const task = TaskModel.create({
         image,
         location,
-        // completeTask,
-        // reward,
       });
       return res.status(201).json({
         success: true,
