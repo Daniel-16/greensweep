@@ -28,6 +28,15 @@ const router = express.Router();
 router.post("/createUser", createUser);
 router.post("/loginUser", loginUser);
 
+/**
+ * Route for creating a volunteer
+ * @name createVolunteer
+ * @name loginVolunteer
+ * @function
+ * @inner
+ * @param {string} path
+ * @param {string} middleware
+ */
 router.post("/createVolunteer", createVolunteer);
 router.post("/loginVolunteer", loginVolunteer);
 
